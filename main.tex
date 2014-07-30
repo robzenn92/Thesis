@@ -1,0 +1,53 @@
+\documentclass[a4paper,11pt,oneside]{book}
+
+\usepackage{graphicx}			% to set the title_page image (university's logo)
+\usepackage{amsmath} 			% to use the math environments align, aligned, gather, gathered, multline
+\usepackage[titletoc]{appendix}
+\usepackage{cite}				% to use bibliography
+\usepackage{hyperref}			% to use urls
+\usepackage{tikz}				% to use flowchart
+\usepackage{color, colortbl} 	% to use colors in tables
+\usepackage{algorithm2e}		% to insert algorithms
+\usepackage{minted}				% for gherkin code in latex
+\usepackage{braket}				% to use \Set
+\usepackage{subcaption}			% to align two figures in horizontal
+\usepackage{synttree}			% for syntaxt-tree
+
+% Defined commands and tools
+
+\newcommand\chap[1]{
+  \chapter*{#1}
+  \addcontentsline{toc}{chapter}{\protect\numberline{}#1}}
+
+\definecolor{LightCyan}{rgb}{0.76, 0.92, 1}		% cyan
+\definecolor{kellygreen}{rgb}{0.3, 0.73, 0.09}	% green
+\definecolor{ruddy}{rgb}{1.0, 0.0, 0.16}		% red
+
+\author{Roberto Zen}
+\title{Gherkin* and Cucumber*: a new test case path approach to testing Ruby on Rails web applications}
+
+\begin{document}
+
+\input{title_page}
+\input{dedicated_to}
+
+\input{acknowledgements}
+
+\frontmatter
+\tableofcontents
+\listoffigures
+\listoftables
+
+\input{abstract}
+
+\mainmatter
+\input{chapter_1}
+\input{chapter_2}
+\input{chapter_3}
+\input{chapter_4}
+\input{conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
+
+\end{document}

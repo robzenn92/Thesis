@@ -1,0 +1,58 @@
+\chapter{Introduction}
+
+During the development of a software system it is important to test software itself and how it interacts with users. In this view, agile methodologies are adopted by software development teams due to their significant benefits. In some methodologies such as Scrum and Extreme Programming, one of the core activity done is Test Driven Development (TDD, \cite{book:tdd}). This development technique is based on writing tests before developing enough production code, following the \textit{Red-Green-Refactor} process. More precisely, for each functionality there should be some test cases written by testers. These tests will fail until the feature is developed, making the tests pass. In this way, new software features can be deployed only after they have been tested.
+
+An extension of TDD is Behavior Driven Development (BDD, \cite{article:bdd}) which is an agile software development technique evolved in the last few years. It uses natural language to describe acceptance so that tests that can be read by non-programmers. BDD focuses on writing user story specifications and then working on a single specification at time, until it is developed and tested. These specifications are called ``scenarios" and each of these describes a possible example of how a software should work as a test case.
+
+These two techniques are quite similar. The key difference is based on the terms \textit{tests} and \textit{scenarios}. In fact, while tests are written by developers, scenarios are given by stakeholders, written by testers, and implemented by developers.
+
+The choice between TDD and BDD is sometimes complicated \cite{article:skygate} but, to the best of my knowledge, BDD is the best approach due to two significant benefits:
+
+\begin{enumerate}
+\item Scenarios help testers to write test cases in their own language (i.e English). This allows developers to think through solutions, before starting to write code.
+\newpage
+\item It is notoriously difficult to figure out exactly what stakeholders want, so an easy way is starting by examples. In this view, test cases can be read by stakeholders in order to understand if a new software feature meets the requirements.
+\end{enumerate}
+
+However, this technique suffers of some issues. As the quantity of features in Web-based software systems continue to grow rapidly, the organization of the BDD test suite has become difficult for people who do not have a solid background on testing. Moreover, requirements changes may cause a complete refactoring of it and so, a labour-intensive process for testers.
+
+Fortunately, Rails benefits from a huge number of ``gems", which are packages that provides to developers self-contained solutions for various problems, also for testing. Two important gems in this field are \textit{Gherkin} and \textit{Cucumber}, which help testers to organize test cases as user stories.  
+
+Recently, many studies such as \cite{novel_approach} and \cite{article:testing_web_app_with_fsms} have been carried out on the topic of test case generation for Web Applications. My research focuses on how this problem can be archived in Ruby on Rails web applications.
+
+This thesis describes \textbf{\textit{Gherkin*}} and \textbf{\textit{Cucumber*}} Ruby gems, which help address some of the issues mentioned above. In particular, we designed a solution that may allow testers to better organize their tests and generate automatically new test cases.
+
+I developed those gems during my internship at the ICT4G Unit\footnote{\url{http://ict4g.fbk.eu}} at Fondazione Bruno Kessler\footnote{\url{http://www.fbk.eu}} (Trento, Italy).
+
+The proposed solution aims to be a novel approach to testing Ruby on Rails web applications following the BDD methodology. It provides an easy way to automatically generate test cases starting from the composition of the single ones. Gherkin* allows testers to write scenarios which can be connected to each others. Cucumber* needs Gherkin* to parse files where scenarios are written, and builds a graph where nodes are scenarios while edges are links between them. Afterwards, a visit to that graph is run in order to execute all the possible test case paths in sequence.
+
+To better understand how test case paths can be obtained, an analysis of graph coverage criteria has been done. Fundamental results have been found and will help to improve our solution in the near future.
+
+\newpage
+\section{Motivations}
+
+The reasons which have motivated me to conduct a study on this field are the following:
+
+\begin{enumerate}
+\item \textbf{Having 100\% coverage on a project gives a false sense of confidence} \cite{article:coverage}. In fact, if a web application is tested with the maximum percentage of coverage nothing can be guaranteed about its robustness. It is necessary to find a method to improve the validation of web applications.
+\item \textbf{Testers waste a lot of their time writing test cases}. Many test cases are very similar and consequently the same checks appear multiple times in different scenarios. This may be considered as a scalability problem.
+\item \textbf{Test cases are written following testers' logic}. Lots of different situations are not tested because they may seem actions that users never do. This may be considered as a quality problem.
+\end{enumerate}
+
+\section{Goals}
+
+The goals of this thesis are the following:
+
+\begin{enumerate}
+\item \textbf{Investigate and experiment approaches to improve the validation of web applications}. This thesis aims to increase the percentage of code coverage of test cases written for web applications. Thanks to the composition and the generation of test case paths, some lines of code that have not been tested with written scenarios can be checked by the generated ones.
+\item \textbf{Save testers' time}. The purpose of this elaborate is to avoid code duplication following the Don't Repeat Yourself (DRY) principle also for test cases.
+\item \textbf{Improve the organization of test cases}. We want to organize test cases in small composable units to improve their maintainability and define composition rules that allow us to compose elementary test cases in complex scenarios.
+\end{enumerate}
+
+\section{Results}
+
+The tools developed as a result of this work can help to increase the validation of Ruby on Rails web applications in terms of code coverage. An extension of two existing Ruby gems, which are part of an open source project\footnote{\url{http://cukes.info}}, will be presented. Gherkin* and Cucumber* can be installed and used by testers who want to use these new BDD tools in their web applications. Both the gems are currently released under the MIT license on my Github profile following the URLs: \url{https://github.com/robzenn92/gherkin_star} and \url{https://github.com/robzenn92/cucumber_star}.
+
+\section{Outline}
+
+Chapter 2 describes all the technologies we used to introduce the BDD in Bring The Food. Moreover, it gives readers all the competences to understand our proposed solution. Chapter 3 explains the Cucumber's limits and why testers find difficult to manage test cases with it. Chapter 4 shows the details about the proposed solution and how an ideal test workflow could be. The last chapter states the conclusion of the thesis.

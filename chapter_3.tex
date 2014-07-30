@@ -1,0 +1,72 @@
+\chapter{The limits of the Cucumber gem}
+
+To reach a satisfactory level of test coverage, and obtain an high percentage value in SimpleCov, testers need to write lots of test cases for each feature. However, managing lots of tests in a single file may be difficult. Consider also that, scenarios may be similar to each other. Hence, the same steps often occur in different scenarios. 
+
+For instance, consider the Login condition: most of our scenarios use it to test features that require a user which is logged in the application. Consequently, also same results can be expected by different test cases (e.g., Login failed with a wrong username, wrong password, wrong username and password). As result, in order to validate little changes, tests repeat other tests or part of them more than once. To better understand this situation, we can define three categories of steps:
+
+\begin{enumerate}
+\item \textbf{Category 1}: conditions written to prepare an environment which will be the object of the testing activity. These steps usually start with the word \textit{Given}.
+\item \textbf{Category 2}: steps used to test the behavior of features in particular scenarios. These steps are usually written in the middle of test cases and start with the word \textit{When}.
+\item \textbf{Category 3}: checks which are used by Cucumber to validate test cases. These steps usually start with the word \textit{Then}.
+\end{enumerate}
+
+Every time Cucumber runs a test, steps that belong to both the first and the third category are always defined and executed by many different test cases testing similar functions. Therefore, those steps violate the DRY principle in Ruby, so our goal is to avoid duplicate of them. This provides us with a credible basis to believe that this situation is due to the fact that each scenario is run as a separate test case. 
+
+\section{A real example}
+
+A clear example of the problems mentioned in the previous section is shown in Figure \ref{figure:scenario_example_problems}.
+
+\begin{figure}[H]
+\begin{minted}[fontsize=\small,frame=single,linenos=true]{gherkin}
+Feature: Example of Collectors' actions
+
+  Scenario: Login
+    Given I am on the login page
+    When I sign in as "collector@example.com"
+    Then I should see "Available Offers"
+
+  Scenario: Logout
+    Given I am logged in as "collector@example.com"
+    When I sign out
+    Then I should be redirected to the login page
+
+  Scenario: Login and Logout
+    Given I am on the login page
+    When I sign in as "collector@example.com"
+    And I sign out
+    Then I should be redirected to the login page
+
+  Scenario: A collector creates a donation
+    Given I am logged in as "collector@example.com"
+    When I publish a new donation
+    Then I should see the last donation in the list of donations
+
+  Scenario: A collector creates two donations
+    Given I am logged in as "collector@example.com"
+    When I publish two new donations
+    Then I should see the last 2 donations in the list of donations
+
+  Scenario: A collector creates a donation and then logs out
+    Given I am logged in as "collector@example.com"
+    When I publish a new donations
+    And I sign out
+    Then I should be redirected to the login page
+\end{minted}
+\vspace{-1em}
+\caption{Some scenarios repeat steps that has been already executed.}
+\label{figure:scenario_example_problems}
+\end{figure}
+
+As it can be seen, there are six scenarios that test the following features: login, logout, and the creation of a new donation. In particular, we can note that three of them expect the same page redirect, while four of them have the same initial condition: the login of the user as collector.
+
+Therefore we believe that is crucial to give testers a method which follows the DRY principle allowing an easier and a faster way to write and organize test cases. The solution we found is to extend the Gherkin and Cucumber gems in order to limit step repetitions and to generate test case automatically.
+
+\section{Related work}
+
+Many approaches have been proposed to address the problem of test case generation.
+
+In \cite{automated_test_case_ia}, a method for automatic testing based on an extended IA (EIA) model is provided, while \cite{novel_approach} presents a two-phase approach to generate test cases automatically by analyzing structure of Web applications.
+
+One approach we found similar to our work is \cite{book:towards_paper} because it faces the same problem in terms of Ruby on Rails Web applications. It sketches an algorithm for generating test cases based on uncovered lines of code. To archive this, it automatically writes new step definitions in feature files. In this way, testers write only test code to make pass the steps.
+
+However, our approach is different because the proposed solution allows testers to generate and execute multiple scenarios based on the composition of single test cases.

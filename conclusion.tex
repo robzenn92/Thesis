@@ -1,0 +1,16 @@
+\chap{Conclusion}
+
+This thesis describes \textit{Gherkin*} and \textit{Cucumber*} as extension of two Ruby gems. We started by introducing the BDD technique in Ruby on Rails projects and then we analysed the Gherkin and Cucumber gems. Afterwards we emphasized its benefits and its limitations and then we exposed our tools.
+
+The proposed solution aims to be a novel approach to testing Ruby on Rails web applications following the BDD methodology. The tools developed allow testers to write scenarios and to link them creating a graph of test cases. In this way, not only written scenarios are executed but also a generation process of new test cases is made possible by traversing all the test case paths in the graph.
+
+At the moment, these gems are available with all the limitations described and can be downloaded by testers using the URLs provided. We released both gems under the MIT Licence, so any kind of contribution is encouraged and welcomed. I think that our solution gives testers a fast way to write test cases and I hope it will evolve in the near future with the help of the Cucumber project's community.
+
+The released version of Gherkin* and Cucumber* are far to be complete. We plan to extend Gherkin* and Cucumber* in such a way that testers can use them for all Ruby on Rails web applications. Some of the future work include:
+
+\begin{enumerate}
+\item \textbf{An analysis of the performance of Cucumber*}. We want to experiment to how much our approach reduces the time spent by testers to write scenarios.
+\item \textbf{Find a way to avoid multiple Given-When-Then sentences in the output}. Testers and users may have difficult to read the output of composed scenarios due to complex and long sentences. A solution could be to show only the name of the generated scenarios. In case of errors, Cucumber* may show only the failed step.
+\item \textbf{Overcome the limit of loops in the generated graph}. The Complete Path Coverage may not be necessary because loops might need to be executed a finite number of times to get an adequate coverage. Hence, a new keyword could be introduced in the Gherkin* language in order to allow testers to limit the number of times that a scenario can be executed. For instance, testers could write the keyword \textbf{Limit\_to:} followed by a number that limits the executions of a scenario up to that number. In this way, we can use a graph traversal algorithm to obtain a finite number of test case paths in the graph.
+\end{enumerate}
+
