@@ -27,9 +27,9 @@ This thesis presents a novel approach to testing Ruby on Rails web applications.
 * Chapter 4: The proposed solution
   * 4.1 Gherkin*
   * 4.2 Cucumber*
-  * 4.2.1 Graph generation
-  * 4.2.2 Test case paths detection
-  * 4.2.3 Scenario generation
+    * 4.2.1 Graph generation
+    * 4.2.2 Test case paths detection
+    * 4.2.3 Scenario generation
   * 4.3 Results
 * Chapter 5: Conclusion
 
